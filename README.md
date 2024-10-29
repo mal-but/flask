@@ -15,9 +15,9 @@ nohup python3 main.py &
 
 
 ## 바른 API (linux 기준)
-sudo apt update && sudo apt upgrade -y
-docker pull bareunai/bareun:latest
-docker run -d --restart unless-stopped --name bareun -p 5757:5757 -p 9902:9902 -v ~/bareun/var:/bareun/var bareunai/bareun:latest
+sudo apt update && sudo apt upgrade -y <br>
+docker pull bareunai/bareun:latest <br>
+docker run -d --restart unless-stopped --name bareun -p 5757:5757 -p 9902:9902 -v ~/bareun/var:/bareun/var bareunai/bareun:latest <br>
 
 
 ## 바른 AI
