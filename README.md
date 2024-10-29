@@ -14,5 +14,11 @@ pip install fastapi uvicorn transformers torch scikit-learn kiwipiepy bareunpy p
 nohup python3 main.py & 
 
 
+## 바른 API (linux 기준)
+sudo apt update && sudo apt upgrade -y
+docker pull bareunai/bareun:latest
+docker run -d --restart unless-stopped --name bareun -p 5757:5757 -p 9902:9902 -v ~/bareun/var:/bareun/var bareunai/bareun:latest
+
+
 ## 바른 AI
 https://bareun.ai/
