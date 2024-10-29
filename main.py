@@ -43,7 +43,7 @@ logger.info(f"Using device: {device}")
 model.to(device)
 
 # 바른 API REST 엔드포인트와 API 키 설정
-BAREUN_API_URL = 'http://localhost:5758/bareun/api/v1/analyze'
+BAREUN_API_URL = 'http://localhost:5757/bareun/api/v1/analyze'
 BAREUN_API_KEY = 'koba-STTQRVI-EDAUW6Q-XHQWDBQ-C5YQFXA'
 
 
