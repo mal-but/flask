@@ -7,12 +7,13 @@ python main.py
 <br><br>
 
 ## linux
+cd [git clone을 한 폴더명] <br>
 python3 -m venv venv <br>
 source venv/bin/activate <br>
 python3 -m pip install --upgrade pip <br>
 pip install fastapi uvicorn transformers torch scikit-learn kiwipiepy bareunpy python-dotenv <br>
 (pip install torch --index-url https://download.pytorch.org/whl/cpu) <br>
-nohup python3 main.py & 
+nohup python3 flask/main.py & 
 <br><br>
 
 ## 바른 API (linux 기준)
