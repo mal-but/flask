@@ -11,7 +11,7 @@ python3 -m venv venv <br>
 source venv/bin/activate <br>
 python3 -m pip install --upgrade pip <br>
 pip install fastapi uvicorn transformers torch scikit-learn kiwipiepy bareunpy python-dotenv <br>
-(pip install torch --index-url https://download.pytorch.org/whl/cpu)
+(pip install torch --index-url https://download.pytorch.org/whl/cpu) <br>
 nohup python3 main.py & 
 <br><br>
 
