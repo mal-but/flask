@@ -13,7 +13,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import logging
-from typing import List
 
 # 로거 설정
 logging.basicConfig(level=logging.INFO)
@@ -181,43 +180,40 @@ def calculate_final_score(similarity: float, delivery_score: int, morph_similari
 
 
 # API 엔드포인트
-@app.post("/evaluate_similarity_batch", response_model=List[EvaluationResult])
-async def evaluate_similarity_batch(sentence_pairs: List[SentencePair]):
-    results = []
-    for sentence_pair in sentence_pairs:
-        logger.info(f"Processing sentence1: {sentence_pair.sentence1} and sentence2: {sentence_pair.sentence2}")
-        try:
-            # 코사인 유사도 평가
-            similarity = calculate_cosine_similarity(sentence_pair.sentence1, sentence_pair.sentence2)
-            logger.info(f"Calculated similarity: {similarity:.4f}")
+@app.post("/evaluate_similarity", response_model=EvaluationResult)
+async def evaluate_similarity(sentence_pair: SentencePair):
+    logger.info(f"Processing sentence1: {sentence_pair.sentence1} and sentence2: {sentence_pair.sentence2}")
+    try:
+        # 코사인 유사도 평가
+        similarity = calculate_cosine_similarity(sentence_pair.sentence1, sentence_pair.sentence2)
+        logger.info(f"Calculated similarity: {similarity:.4f}")
 
-            # 전달력 점수 평가 (두 번째 문장에 대해서만)
-            delivery_score = evaluate_delivery(sentence_pair.sentence2)
-            logger.info(f"Calculated delivery_score: {delivery_score}")
+        # 전달력 점수 평가 (두 번째 문장에 대해서만)
+        delivery_score = evaluate_delivery(sentence_pair.sentence2)
+        logger.info(f"Calculated delivery_score: {delivery_score}")
 
-            # 형태소 유사도 평가
-            morph_similarity = get_morph_similarity(sentence_pair.sentence1, sentence_pair.sentence2)
-            logger.info(f"Calculated morph_similarity: {morph_similarity:.4f}")
+        # 형태소 유사도 평가
+        morph_similarity = get_morph_similarity(sentence_pair.sentence1, sentence_pair.sentence2)
+        logger.info(f"Calculated morph_similarity: {morph_similarity:.4f}")
 
-            # 최종 점수 계산 (유사도가 95 이상일 경우 100점 반환)
-            final_score = calculate_final_score(similarity, delivery_score, morph_similarity)
-            logger.info(f"Calculated final_score: {final_score}")
+        # 최종 점수 계산 (유사도가 95 이상일 경우 100점 반환)
+        final_score = calculate_final_score(similarity, delivery_score, morph_similarity)
+        logger.info(f"Calculated final_score: {final_score}")
 
-            # 결과 객체 생성
-            result = EvaluationResult(
-                sentence1=sentence_pair.sentence1,
-                sentence2=sentence_pair.sentence2,
-                similarity=similarity,
-                delivery_score=delivery_score,
-                morph_similarity=morph_similarity,
-                final_score=final_score
-            )
-            results.append(result)
+        # 결과 객체 생성
+        result = EvaluationResult(
+            sentence1=sentence_pair.sentence1,
+            sentence2=sentence_pair.sentence2,
+            similarity=similarity,
+            delivery_score=delivery_score,
+            morph_similarity=morph_similarity,
+            final_score=final_score
+        )
+        return result
 
-        except Exception as e:
-            logger.error(f"Error occurred while processing: {e}")
-            raise HTTPException(status_code=500, detail=str(e))
-    return results
+    except Exception as e:
+        logger.error(f"Error occurred while processing: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":
