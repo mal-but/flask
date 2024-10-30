@@ -12,6 +12,7 @@ python3 -m venv venv <br>
 source venv/bin/activate <br>
 python3 -m pip install --upgrade pip <br>
 pip install fastapi uvicorn transformers scikit-learn kiwipiepy bareunpy python-dotenv torch <br>
+(pip install -r flask/requirements.txt)<br>
 nohup python3 flask/main.py & 
 <br><br>
 
