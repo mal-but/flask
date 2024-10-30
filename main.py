@@ -43,7 +43,8 @@ logger.info(f"Using device: {device}")
 model.to(device)
 
 # 바른 API REST 엔드포인트와 API 키 설정
-BAREUN_API_URL = 'http://localhost:5757/bareun/api/v1/analyze'
+BAREUN_API_URL = ('http://localhost:5757/bareun'
+                  '/api/v1/analyze')
 BAREUN_API_KEY = 'koba-STTQRVI-EDAUW6Q-XHQWDBQ-C5YQFXA'
 
 
@@ -223,4 +224,4 @@ if __name__ == "__main__":
     import uvicorn
 
     logger.info("Starting server...")
-    uvicorn.run(app, host="127.0.0.1", port=1234)
+    uvicorn.run(app, host="0.0.0.0", port=1234)
